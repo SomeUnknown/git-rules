@@ -1,0 +1,52 @@
+case "shape":
+var shape = newTask.Question;
+string[] wrds = shape.Split(new char[] { '|' });
+ScriptEngine engine3 = Python.CreateEngine();
+ScriptScope scope3 = engine3.CreateScope();
+scope3.SetVariable("figure", wrds[1]);
+engine3.ExecuteFile("D://shape.py", scope3);
+dynamic shapeRes = scope3.GetVariable("result");
+if (shapeRes == 0)
+return "ellipse";
+else if (shapeRes == 1)
+return "triangle";
+else
+return "rectangle";
+ 
+k=0
+maxx=0
+maxy=0
+minx=100000
+miny=100000
+a = figure
+newf = a.replace(',',' ')
+newf2 = newf.replace('(','')
+newf3 = newf2.replace(')','')
+lst = newf3.split()
+arr = []
+for i in range (1000):
+arr.append([0]*1000)
+for i in range (0, len(lst)):
+if i%2==0 and eval(lst[i])>maxx:
+maxx=eval(lst[i])
+for i in range (0, len(lst)):
+if i%2!=0 and eval(lst[i])>maxy:
+maxy=eval(lst[i])
+for i in range (0, len(lst)):
+if i%2==0 and eval(lst[i])<minx:
+minx=eval(lst[i])
+for i in range (0, len(lst)):
+if i%2!=0 and eval(lst[i])<miny:
+miny=eval(lst[i])
+for i in range(0, len(lst)-1, 2):
+arr[int(lst[i])][int(lst[i+1])]+=1
+if arr[maxx][maxy]==1:
+k+=1
+if arr[minx][miny]==1:
+k+=1
+if k==0:
+result = 0
+if k==1:
+result = 1
+if k==2:
+result = 2
